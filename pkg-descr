@@ -1,0 +1,16 @@
+AliceVision is a Photogrammetric Computer Vision Framework which provides a 3D
+Reconstruction and Camera Tracking algorithms. AliceVision aims to provide
+strong software basis with state-of-the-art computer vision algorithms that can
+be tested, analyzed and reused. The project is a result of collaboration between
+academia and industry to provide cutting-edge algorithms with the robustness and
+the quality required for production usage.
+
+Learn more details about the pipeline and tools based on it on AliceVision
+website.
+
+See results of the pipeline on sketchfab.
+
+Photogrammetry is the science of making measurements from photographs. It infers
+the geometry of a scene from a set of unordered photographies or videos.
+Photography is the projection of a 3D scene onto a 2D plane, losing depth
+information. The goal of photogrammetry is to reverse this process.
