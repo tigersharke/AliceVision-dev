@@ -1,5 +1,5 @@
 PORTNAME=	AliceVision
-DISTVERSION=	g20220611
+DISTVERSION=	g20220704
 CATEGORIES=	multimedia
 PKGNAMESUFFIX=	-dev
 DISTNAME=	${PORTNAME}-${GH_TAGNAME}
@@ -10,7 +10,9 @@ COMMENT=	Vision Framework for 3D Reconstruction and Camera Tracking algorithms
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	lzlib>=1.1:archivers/lzlib
+BUILD_DEPENDS=	lzlib>=1.1:archivers/lzlib \
+		lgf-gen:math/lemon \
+		mconvert:math/openmesh
 
 LIB_DEPENDS=	libassimp.so:multimedia/assimp \
 		libboost_atomic.so:devel/boost-libs \
@@ -19,9 +21,13 @@ LIB_DEPENDS=	libassimp.so:multimedia/assimp \
 		libOpenEXR.so:graphics/openexr \
 		libOpenImageIO.so:graphics/openimageio \
 		libpng.so:graphics/png \
-		libtiff.so:graphics/tiff
+		libtiff.so:graphics/tiff \
+		libflann_cpp.so:math/flann \
+		libCoinUtils.so:math/coinutils \
+		libClp.so:math/clp \
+		libOsi.so:math/osi
 
-CMAKE_ARGS+=    -DALICEVISION_BUILD_DEPENDENCIES:BOOL=OFF \
+CMAKE_ARGS+=    -DALICEVISION_BUILD_DEPENDENCIES:BOOL=ON \
 		-DALICEVISION_BUILD_TESTS:BOOL=OFF \
 		-DAV_BUILD_CUDA:BOOL=OFF \
 		-DAV_BUILD_ZLIB:BOOL=OFF \
@@ -38,14 +44,15 @@ CMAKE_ARGS+=    -DALICEVISION_BUILD_DEPENDENCIES:BOOL=OFF \
 		-DAV_BUILD_LAPACK:BOOL=OFF \
 		-DAV_BUILD_PNG:BOOL=OFF \
 		-DAV_BUILD_SUITESPARSE:BOOL=OFF \
-		-DAV_BUILD_FFMPEG:BOOL=OFF
+		-DAV_BUILD_FFMPEG:BOOL=OFF \
+		-DAV_USE_CUDA:BOOL=OFF
 
 USES=		cmake compiler:c++11-lang eigen:3 pkgconfig:build jpeg ninja
 
 USE_GITHUB=	nodefault
 GH_ACCOUNT=	alicevision
 GH_PROJECT=	AliceVision
-GH_TAGNAME=	0372bca9895fd4574d5875a365f2a60d7283304f
+GH_TAGNAME=	5650579ddf25769637c5c0eeced77fe43b4133c7
 
 WRKSRC=	${WRKDIR}/${PORTNAME}-${GH_TAGNAME}
 
@@ -69,7 +76,7 @@ WRKSRC=	${WRKDIR}/${PORTNAME}-${GH_TAGNAME}
 #
 #    if you have jpeg already install on your OS, you can disable the JPEG build with -DAV_BUILD_JPEG=OFF.
 #
-# Recently quits expecting osi_clp/CoinUtils dependent:
+# Recently quits expecting osi_clp/CoinUtils dependent, although it exists on the system.q
 #
 # 
 # # ==============================================================================
@@ -88,7 +95,7 @@ WRKSRC=	${WRKDIR}/${PORTNAME}-${GH_TAGNAME}
 #	Coin-or linear programming (Clp) (internal)
 #	Flann >= 1.8.4 (internal)
 #	Lemon >= 1.3 (internal)
-#	MeshSDFilter (internal)
+# Need:	MeshSDFilter (internal)
 #	OpenMesh (internal)
 #	Open Solver Interface (Osi) >= 0.106.10 (internal)
 #
